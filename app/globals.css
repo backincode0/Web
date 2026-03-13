@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+  --bg: #0b0b0b;
+  --bg-muted: #111111;
+  --surface: #1b1b1b;
+  --text-primary: #f4f4f4;
+  --text-secondary: #b2b2b2;
+  --border: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="light"] {
+  --bg: #fefefe;
+  --bg-muted: #f2f2f2;
+  --surface: #ffffff;
+  --text-primary: #060606;
+  --text-secondary: #4a4a4a;
+  --border: rgba(0, 0, 0, 0.08);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, sans-serif;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+.gradient-glow {
+  background: radial-gradient(circle at top, rgba(48, 224, 208, 0.25), transparent 45%),
+    radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.1), transparent 35%),
+    var(--bg);
+}
+
+.glass-panel {
+  backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.transition-page {
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.06));
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 150% 0;
+  }
+}

@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 Int            @id @default(autoincrement())
+  name               String?
+  email              String         @unique
+  password           String
+  isVerified         Boolean        @default(false)
+  verificationToken  String?
+  resetToken         String?
+  role               UserRole       @default(USER)
+  orders             Order[]
+  createdAt          DateTime       @default(now())
+}
+
+model Service {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  icon        String
+  description String
+  examples    String
+  price       Int
+  orders      Order[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String
+  budget      Float
+  deadline    DateTime
+  status      OrderStatus @default(PENDING)
+  fileName    String?
+  fileType    String?
+  service     Service     @relation(fields: [serviceId], references: [id])
+  serviceId   Int
+  owner       User        @relation(fields: [ownerId], references: [id])
+  ownerId     Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
